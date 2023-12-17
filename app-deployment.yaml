@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: bilallaaroussi/stoopid:v4
+          image: bilallaaroussi/stoopid:v8
           ports:
             - containerPort: 3000
 
@@ -30,4 +30,4 @@ spec:
       targetPort: 3000  # Updated to match containerPort in the Deployment
       nodePort: 30006
   selector:
-    app: my-app  # Updated to match labels in the Deployment
+    app: my-app  # Updated to match labels in the Deployment 
