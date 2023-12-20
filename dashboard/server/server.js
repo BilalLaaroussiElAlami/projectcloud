@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const app = express();
-//const port = process.env.PORT || 3000;
-const port = 3000;
+const port = process.env.PORT || 3000;
+
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..', 'public')));

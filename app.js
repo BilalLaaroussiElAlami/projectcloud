@@ -9,7 +9,6 @@ const images = [
 ];
 
 
-
 const delta_millis_upload = 1000 //every delta_millis_upload, an image is uploaded
 const podHostname = process.env.HOSTNAME;
 
