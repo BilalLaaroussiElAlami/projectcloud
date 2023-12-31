@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 
 
 // Serve static files from the 'public' directory
@@ -43,7 +43,6 @@ app.post('/submit-data', upload.single('image'), (req, res) => {
         const imageName = Date.now() + '-' + image.originalname;
         const imagePath = path.join(__dirname, 'uploads', imageName);
         fs.writeFileSync(imagePath, image.buffer);
-
         console.log('Image:', image); // Image details will be available here
     }
 
