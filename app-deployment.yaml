@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: bilallaaroussi/stoopid:v8
+          image: bilallaaroussi/stoopid:v13
           ports:
             - containerPort: 3000
 
