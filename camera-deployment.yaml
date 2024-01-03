@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: camera-deployment
 spec:
   replicas: 3
   selector:
@@ -10,13 +10,14 @@ spec:
   template:
     metadata:
       labels:
+        name: camera-deployment
         app: my-app
     spec:
       containers:
         - name: app-image
-          image: bilallaaroussi/stoopid:v13
-          ports:
-            - containerPort: 3000
+          image: bilallaaroussi/stoopid:v17
+         # ports:
+         #   - containerPort: 3002
 
 #camera does not need a service
 #---

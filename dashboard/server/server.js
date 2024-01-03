@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Dashboard server LIVE,  running at http://localhost:${port}`);
 });
 
 // Multer setup for handling file uploads

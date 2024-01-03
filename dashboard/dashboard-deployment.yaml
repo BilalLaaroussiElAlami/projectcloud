@@ -10,11 +10,12 @@ spec:
   template:
     metadata:
       labels:
+        name: dashboard-deployment
         app: my-app
     spec:
       containers:
         - name: dashboard-image-image
-          image: bilallaaroussi/dashboard-image
+          image: bilallaaroussi/dashboard-image:1
           ports:
             - containerPort: 3030
 ---
@@ -29,7 +30,7 @@ spec:
     - protocol: TCP
       port: 3030
       targetPort: 3030
-      nodePort: 30001  # You can specify any available port number here
+      nodePort: 30001  
   type: NodePort
 
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const fs = require('fs');
 
 const images = [
@@ -15,7 +15,7 @@ const podHostname = process.env.HOSTNAME;
 
 const version = fs.readFileSync('version.txt', 'utf8');
 
-
+/*
 app.get('/', (req, res) => {
     res.send(`version ${version}, pod host name: ${podHostname}`)
 });
@@ -24,13 +24,14 @@ app.listen(port, () => {
     console.log(`Camera Server running at http://localhost:${port}`);
 });
 
+*/
 
 function main() {
-    console.log(`version ${version}`);
-    setInterval(function () {
+    console.log(`CAMERA LIVE: version ${version}`);
+    /*setInterval(function () {
         const randomImage = images[Math.floor(Math.random() * images.length)]
         console.log(randomImage)
-    }, delta_millis_upload)
+    }, delta_millis_upload)*/
 }
 
 //-----------------CODE FOR ACCESSING DASHBOARD PODS------------------------
@@ -46,7 +47,7 @@ const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 // Define the namespace and label selector
 const namespace = 'default'; // Change this to your namespace if different
-const labelSelector = 'app=my-app';  //might become problem with multiple deployment's -> solution add other key values tto deployments we don't want and filter them out in here
+const labelSelector = 'app=my-app,name=dashboard-deployment';
 
 // Function to make requests to pods
 async function makeRequestsToPods() {
@@ -62,7 +63,7 @@ async function makeRequestsToPods() {
             console.log("======================================/n")
             console.log("pod: ", pod)
             console.log("======================================/n")
-            const submitDataEndpoint = `http://${podIP}:${podPort}/submit-data`;
+            const submitDataEndpoint = `http://dashboard-service:3030/submit-data`   //  `http://${podIP}:${podPort}/submit-data`;
 
             // Example request payload (adjust as needed)
             const requestData = {
