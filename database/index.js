@@ -46,6 +46,19 @@ app.post('/submit-data', upload.single('image'), (req, res) => {
         fs.writeFileSync(imagePath, image.buffer);
         console.log('Image:', image); // Image details will be available here
     }
+
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            const data = {
+                image: image.toString('base64'), // Convert the buffer to base64 for transmission
+                location: location,
+                time: time,
+                number: number,
+            };
+            client.send(JSON.stringify(data));
+        }
+    })
+
     // Respond with a success message
     res.status(200).json({ message: 'Data received successfully' });
 });
@@ -61,7 +74,7 @@ wss.on('connection', function connection(ws) {
         console.log(`Server received: ${message}`)
         wss.clients.forEach(function each(client) {
             if (client.readyState === WebSocket.OPEN) {
-                setTimeout(() => { client.send(`pong`); }, 1000);
+                // setTimeout(() => { client.send(`pong`); }, 1000);
             }
         });
     });
