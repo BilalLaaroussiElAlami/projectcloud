@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dashboard-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: my-app 
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: dashboard-image-image
-          image: bilallaaroussi/dashboard-image:1
+          image: bilallaaroussi/dashboard-image:6
           ports:
             - containerPort: 3030
 ---

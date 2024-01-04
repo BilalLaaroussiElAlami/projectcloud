@@ -3,9 +3,9 @@ const path = require('path');
 const multer = require('multer'); // For handling file uploads
 const bodyParser = require('body-parser');
 const fs = require('fs');
-
+const WebSocket = require('ws');
 const app = express();
-const port = process.env.PORT || 3030;
+const port = process.env.PORT || 3030 //  Math.floor(Math.random() * (3040 - 3031 + 1)) + 3031;
 
 
 // Serve static files from the 'public' directory
@@ -13,40 +13,49 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Set up a route to handle requests for the main HTML file
 app.get('/', (req, res) => {
+    console.log("im in here")
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
-
+const version = 5
 // Start the server
 app.listen(port, () => {
-    console.log(`Dashboard server LIVE,  running at http://localhost:${port}`);
+    console.log(`Dashboard server version ${version} LIVE,  running at http://localhost:${port}`);
 });
 
-// Multer setup for handling file uploads
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const ws = new WebSocket('ws://localhost:8080');
 
-// Endpoint to handle the submission
-app.post('/submit-data', upload.single('image'), (req, res) => {
-    // Get the submitted data
-    const location = req.body.location;
-    const time = req.body.time;
-    const number = req.body.number;
-    const image = req.file; // This will contain the uploaded image
+ws.onopen = function (event) {
+    console.log("opened connection")
+    sendMessage();
+};
 
-    // Do something with the submitted data (e.g., save to a database, process, etc.)
-    // For demonstration purposes, let's log the received data
-    console.log('Received Data:');
-    console.log('Location:', location);
-    console.log('Time:', time);
-    console.log('Number:', number);
-    if (image) {
-        const imageName = Date.now() + '-' + image.originalname;
-        const imagePath = path.join(__dirname, 'uploads', imageName);
-        fs.writeFileSync(imagePath, image.buffer);
-        console.log('Image:', image); // Image details will be available here
-    }
+ws.onmessage = function (event) {
+    console.log(`Client received: ${event.data}`)
 
-    // Respond with a success message
-    res.status(200).json({ message: 'Data received successfully' });
-});
+    const receivedData = JSON.parse(event.data);
+    const base64Image = receivedData.image;
+    const location = receivedData.location
+    console.log(`location ${location}`)
+    // Remove the metadata prefix ("data:image/png;base64,")
+    console.log(`base64Image ${base64Image}`)
+    //const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
+    //console.log(`base64Data ${base64Data}`)
+    const buffer = Buffer.from(base64Image, 'base64');
 
+    const imageName = `${Date.now()}-image.png`;
+    const imagePath = path.join(__dirname, 'uploads', imageName);
+
+    fs.writeFile(imagePath, buffer, (err) => {
+        if (err) {
+            console.error('Error saving image:', err);
+        } else {
+            console.log('Image saved successfully:', imageName);
+        }
+    });
+    //sendMessage();
+};
+
+function sendMessage() {
+    const message = "ping"
+    ws.send(message);
+}
