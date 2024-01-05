@@ -1,60 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>D3.js Dashboard with 2 Graphs</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        /* CSS styles if needed */
-        .chart {
-            display: inline-block;
-            margin-right: 20px;
-            /* Adjust margin as needed */
-        }
-    </style>
+    <title>Image Display</title>
 </head>
 
 <body>
-    <div class="chart" id="chart1"></div>
-    <div class="chart" id="chart2"></div>
+    <div>
+        <div>
+            <h3> paris</h3>
+            <h3>20</h3>
+            <img id="image1" src="exampleImage.jpg" width="200" alt="Image 1">
+            <p id="number1"></p>
+        </div>
+
+        <div>
+            <h3> bxl</h3>
+            <h3>50</h3>
+            <img id="image2" src="jiojio.jpg" width="200" alt="Image 2">
+            <p id="number2"></p>
+        </div>
+
+        <div>
+            <h3> abudhabi</h3>
+            <h3>100</h3>
+            <img id="image3" src="jiojoi.jpg" width="200" alt="Image 3">
+            <p id="number3"></p>
+        </div>
+    </div>
 
     <script>
-        // Data for the charts (you can replace this with your own data)
-        const barChartData = [
-            { category: "A", value: 20 },
-            { category: "B", value: 35 },
-            { category: "C", value: 15 },
-            { category: "D", value: 45 },
-        ];
+        // Your JavaScript code here
+        let images = {
+            location1: {
+                imageUrl: 'exampleImage.jpg',
+                number: 1
+            },
+            location2: {
+                imageUrl: 'image2.jpg',
+                number: 2
+            },
+            location3: {
+                imageUrl: 'image3.jpg',
+                number: 3
+            }
+        };
 
-        const lineChartData = [
-            { date: "2022-01-01", value: 10 },
-            { date: "2022-01-02", value: 25 },
-            { date: "2022-01-03", value: 15 },
-            { date: "2022-01-04", value: 30 },
-        ];
+        document.getElementById("image2").src = "exampleImage.jpg"
+        function updateImageDetails(location, newImageUrl, newNumber) {
+            if (images.hasOwnProperty(location)) {
+                images[location].imageUrl = newImageUrl;
+                images[location].number = newNumber;
+                console.log(images)
 
-        // Set up dimensions for the charts
-        const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-        const width = 400 - margin.left - margin.right;
-        const height = 300 - margin.top - margin.bottom;
+                // Update HTML elements with the new image URL and number
+                document.getElementById(`image${images[location].number}`).src = images[location].imageUrl;
+                document.getElementById(`number${images[location].number}`).innerText = `Number: ${images[location].number}`;
+            } else {
+                console.log(`Location '${location}' not found.`);
+            }
+        }
 
-        // Create the SVG container for the first chart (bar chart)
-        const svg1 = d3.select("#chart1")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
+        // Update image and number for location2
+        updateImageDetails('location2', 'exampleImage.jpg', 5);
+    </script>
+</body>
 
-        // Create the SVG container for the second chart (line chart)
-        const svg2 = d3.select("#chart2")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        // Render the bar chart
-        const xScale1 = d3.scaleBand
+</html>

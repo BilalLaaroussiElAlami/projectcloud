@@ -1,11 +1,11 @@
 
 //---------------------------------BAR CHART HISTORY---------------------------------------
 // Initial data for the bar chart
-let data = [1, 2, 3];
+let data = [20, 20, 20];
 
 // Set up the SVG canvas dimensions
-const svgWidth = 800;
-const svgHeight = 800;
+const svgWidth = 400;
+const svgHeight = 400;
 const barPadding = 5;
 const nBars = 7;
 const history_time = nBars * 30;
@@ -14,7 +14,8 @@ const history_time = nBars * 30;
 const svg = d3.select('#chart')
     .append('svg')
     .attr('width', svgWidth)
-    .attr('height', svgHeight);
+    .attr('height', svgHeight)
+    .attr("transform", 'translate(5,0)');
 
 
 // Function to update the bar chart
@@ -35,7 +36,7 @@ function updateChart() {
     bars.exit().remove();
 }
 
-var x = 3
+var x = 14
 // Function to add an element to the data list
 function addDataElement() {
     x = x + 1;
@@ -50,42 +51,42 @@ setInterval(addDataElement, 1000);
 
 
 
-
 //------------------BAR TOTAL------------------------------------------------
-/*
+
 // Get the div where you want to append the SVG
-const svg = d3.select("#number_people_chart")
+const svg2 = d3.select("#number_people_chart")
     .append("svg")
     .attr("width", 250) // Width of the SVG
-    .attr("height", 300); // Height of the SVG
+    .attr("height", 300) // Height of the SVG
+    .attr("transform", 'translate(0,145)');
 
 // Set the initial value
-let data = 5000;
+let nPeople = 150;
 
 // Create the scale for the vertical axis
 const yScale = d3.scaleLinear()
-    .domain([0, 10000]) // Define the domain of your data (0 to 100 in this case)
+    .domain([0, 300]) // Define the domain of your data (0 to 100 in this case)
     .range([250, 50]); // Define the range of the axis (from bottom to top)
 
 // Create the vertical axis
 const yAxis = d3.axisLeft(yScale);
 
 // Append the vertical axis to the SVG
-svg.append("g")
+svg2.append("g")
     .attr("transform", "translate(50,0)") // Position the axis
     .call(yAxis);
 
 // Create the bar
-const bar = svg.append("rect")
+const barr = svg2.append("rect")
     .attr("x", 55) // X position of the bar
-    .attr("y", yScale(data)) // Start position of the bar based on data
+    .attr("y", yScale(nPeople)) // Start position of the bar based on data
     .attr("width", 50) // Width of the bar
-    .attr("height", yScale(0) - yScale(data)) // Height of the bar
+    .attr("height", yScale(0) - yScale(nPeople)) // Height of the bar
     .attr("fill", "steelblue"); // Bar color
 
 // Function to update the bar height based on new data
 function updateBar(newData) {
-    bar.transition()
+    barr.transition()
         .duration(500) // Transition duration
         .attr("y", yScale(newData)) // New Y position based on the new data
         .attr("height", yScale(0) - yScale(newData)); // New height based on the new data
@@ -93,7 +94,18 @@ function updateBar(newData) {
 
 // Example: Call updateBar with a new value after some time
 setInterval(() => {
-    data += -200 + Math.floor(Math.random() * 400)
-    updateBar(data);
+    nPeople += -10 + Math.floor(Math.random() * 20)
+    updateBar(nPeople);
 }, 1000); // Update after 2 seconds (2000 milliseconds)
-*/
+
+
+//-----------------------IMAGES--------------------------
+
+function updateLocation(location, image, people) {
+    document.getElementById(location + "Number").innerHTML = people
+    document.getElementById(location).src = image
+}
+
+setTimeout(() => {
+    updateLocation("antwerp", "exampleImage.jpg", 100)
+}, 1000)
