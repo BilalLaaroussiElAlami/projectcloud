@@ -1,3 +1,4 @@
+/*
 // Initial data for the bar chart
 let data = [10, 20, 30, 40, 50];
 
@@ -84,3 +85,4 @@ function addDataElement() {
 
 // Call addDataElement every 1000 milliseconds
 setInterval(addDataElement, 1000);
+*/

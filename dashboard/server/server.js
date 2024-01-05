@@ -21,7 +21,7 @@ const version = 5
 app.listen(port, () => {
     console.log(`Dashboard server version ${version} LIVE,  running at http://localhost:${port}`);
 });
-
+/*
 const ws = new WebSocket('ws://localhost:8080');
 
 ws.onopen = function (event) {
@@ -59,3 +59,4 @@ function sendMessage() {
     const message = "ping"
     ws.send(message);
 }
+*/

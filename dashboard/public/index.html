@@ -5,11 +5,41 @@
     <meta charset="UTF-8">
     <title>Bar Chart</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .box {
+            flex: 1;
+            height: 100px;
+            /* Adding height for visibility */
+        }
+
+        .box:nth-child(1) {
+            background-color: red;
+        }
+
+        .box:nth-child(2) {
+            background-color: blue;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="chart"></div>
+    <div class="container">
+        <div id="chart"></div>
+        <div id="number_people_chart"></div>
+    </div>
+
+    <div class="container">
+        <div class="box">Div 1</div>
+        <div class="box">Div 2</div>
+    </div>
+
     <script src="js/dashboard.js"></script>
+
 </body>
 
 </html>
