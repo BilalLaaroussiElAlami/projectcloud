@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: bilallaaroussi/stoopid:v17
+          image: bilallaaroussi/stoopid:v20
          # ports:
          #   - containerPort: 3002
 
