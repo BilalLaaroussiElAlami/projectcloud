@@ -6,7 +6,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: my-app  # Updated to match labels in the pod template
+      app: my-app  
   template:
     metadata:
       labels:
@@ -15,21 +15,19 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: bilallaaroussi/stoopid:v20
+          image: bilallaaroussi/stoopid:v24
          # ports:
          #   - containerPort: 3002
 
-#camera does not need a service
 #---
 #apiVersion: v1
 #kind: Service
 #metadata:
 #  name: camera-service
 #spec:
-#  type: NodePort
 #  ports:
-#    - port: 80
-#      targetPort: 3000  # Updated to match containerPort in the Deployment
-#      nodePort: 30006
+#    - port: 30000
+#      targetPort: 30000  # Updated to match containerPort in the Deployment
 #  selector:
-#    app: my-app  # Updated to match labels in the Deployment 
+#    name: camera-deployment
+#    app: my-app 

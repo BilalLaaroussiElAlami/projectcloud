@@ -7,15 +7,16 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3035;
 
-/*
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Set up a route to handle requests for the main HTML file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    //res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    res.status(200).json({ message: 'succesfully got to / endpoint' });
 });
-*/
+
 
 // Start the server
 app.listen(port, () => {

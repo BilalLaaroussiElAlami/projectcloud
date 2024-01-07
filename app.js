@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const fs = require('fs');
-
+const axios = require('axios');
 
 function getRandomImage() {
     try {
@@ -62,14 +62,57 @@ app.listen(port, () => {
 
 function main() {
     console.log(`CAMERA LIVE: version ${version}`);
-    setInterval(function () {
+    setTimeout(function () {
         console.log("ping")
         const image = takePicture()
         const headCount = getHeadCount(image)
         const location = "antwerp"   //TODO how to manage location accross pods
-        console.log("image", image)
+        /*console.log("image", image)
         console.log("headcount", headCount)
-        console.log("location", location)
+        console.log("location", location)*/
+
+        console.log('http://database-service')
+        axios.get('http://database-service/')
+            .then(response => {
+                // Handle the response data
+                console.log(response.data);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the request
+                console.error('Request Error:', error);
+            });
+
+        console.log('http://database-service/')
+        axios.get('http://database-service/')
+            .then(response => {
+                // Handle the response data
+                console.log(response.data);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the request
+                console.error('Request Error:', error);
+            });
+        console.log('http://database-service/3035')
+        axios.get('http://database-service/3035')
+            .then(response => {
+                // Handle the response data
+                console.log(response.data);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the request
+                console.error('Request Error:', error);
+            });
+        console.log('http://database-service/3035/')
+        axios.get('http://database-service/3035/')
+            .then(response => {
+                // Handle the response data
+                console.log(response.data);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the request
+                console.error('Request Error:', error);
+            });
+
     }, delta_millis_upload)
 }
 main();
